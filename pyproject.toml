@@ -1,0 +1,48 @@
+[project]
+name = "voice-separate-langgraph-demo"
+version = "0.1.0"
+description = "A LiveKit console voice agent backed by a separately deployed LangGraph agent."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "httpx>=0.27,<1",
+    "langchain-core>=0.3,<2",
+    "langchain-openai>=0.2,<2",
+    "langgraph>=1,<2",
+    "langgraph-sdk>=0.4,<1",
+    "langsmith[livekit,otel]>=0.4,<1",
+    "livekit-agents[assemblyai,cartesia,openai,silero,turn-detector]==1.8.0",
+    "python-dotenv>=1,<2",
+]
+
+[project.scripts]
+voice-separate-langgraph = "voice_separate_langgraph.cli:main"
+
+[dependency-groups]
+dev = [
+    # Keep the local server on a maintained line; langgraph-cli's broad lower
+    # bound can otherwise resolve an end-of-life API release.
+    "langgraph-api>=0.14.1,<1",
+    "langgraph-cli[inmem]>=0.4,<1",
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.24,<2",
+    "ruff>=0.8,<1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/voice_separate_langgraph"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
