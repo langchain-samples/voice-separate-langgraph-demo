@@ -24,7 +24,7 @@ dev = [
     # bound can otherwise resolve an end-of-life API release.
     "langgraph-api>=0.14.1,<1",
     "langgraph-cli[inmem]>=0.4,<1",
-    "pytest>=8,<9",
+    "pytest>=8,<10",
     "pytest-asyncio>=0.24,<2",
     "ruff>=0.8,<1",
 ]
